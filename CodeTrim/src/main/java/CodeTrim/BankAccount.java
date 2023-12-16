@@ -10,6 +10,7 @@ public class BankAccount
 	private String accountNumber;
 	private String accountName;
 	protected double balance;
+        private String pin;
 	
 	// the methods
 	
@@ -19,6 +20,7 @@ public class BankAccount
 		accountNumber = numberIn;
 		accountName = nameIn;
 		balance = 0;
+                this.pin = pin;
 	}
 	
 	// methods to read the attributes
@@ -36,7 +38,9 @@ public class BankAccount
 	{
 		return balance;
 	}
-	
+	   public String getPin() {
+        return pin;
+    }
 	// methods to deposit and withdraw money
 	public void deposit(double amountIn)
 	{
@@ -54,6 +58,10 @@ public class BankAccount
 				return true; // money was withdrawn successfully
 			}
 	}
+         public boolean validateAccount(String enteredAccountNumber, String enteredPin) {
+        return accountNumber.equals(enteredAccountNumber) && pin.equals(enteredPin);   
+    }
+
 }
 
 

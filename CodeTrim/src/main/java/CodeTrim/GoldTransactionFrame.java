@@ -65,20 +65,23 @@ public class GoldTransactionFrame extends JFrame {
     private void handleTransactionInput(JComboBox<String> transactionComboBox, JTextField amountField) {
     String selectedTransaction = (String) transactionComboBox.getSelectedItem();
     String amountInput = amountField.getText();
+    
 
     if (amountInput.isEmpty()) {
-        if (!selectedTransaction.equals("Deposit")) {
-            JOptionPane.showMessageDialog(this, "Input is empty. Please enter an amount.");
-            return;
-        }
-      
+    if ((selectedTransaction.equals("Deposit"))&&!(selectedTransaction.equals("Deposit"))) {
+        JOptionPane.showMessageDialog(this, "Input is empty. Please enter an amount.");
+        return;
+    }else if ( (selectedTransaction.equals("Withdraw"))&&!(selectedTransaction.equals("Withdraw"))) {
+        JOptionPane.showMessageDialog(this, "Input is empty. Please enter an amount.");
+        return;
     }
-    if (amountInput.contains("d") || amountInput.contains("f")) {
+}
+    if (amountInput.equalsIgnoreCase("d") || amountInput.equalsIgnoreCase("f")) {
         JOptionPane.showMessageDialog(this, "Invalid Input. Do not enter string inputs.");
         return;
     }
   
-
+    boolean withdrawalSuccess = false;
     try {
         double amount = Double.parseDouble(amountInput);
 
@@ -89,7 +92,7 @@ public class GoldTransactionFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Deposit Successful. New balance: " + goldAccount.getBalance());
             }
             case "Withdraw" -> {
-                boolean withdrawalSuccess = goldAccount.withdraw(amount);
+                withdrawalSuccess = goldAccount.withdraw(amount);
                 if (withdrawalSuccess) {
                     JOptionPane.showMessageDialog(this, "Withdrawal Successful. New balance: " + goldAccount.getBalance());
 
@@ -102,9 +105,9 @@ public class GoldTransactionFrame extends JFrame {
 
        
     } catch (NumberFormatException ex) {
-    if (!selectedTransaction.equals("Deposit") || !amountInput.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Invalid amount. Please enter a valid number.");
-    }
+        if (!(selectedTransaction.equals("Deposit") || selectedTransaction.equals("Withdraw")) && !amountInput.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Invalid amount. Please enter a valid number.");
+        }
    
     }
     // Update the balance label

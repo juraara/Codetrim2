@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.awt.GridLayout;
 
 public class SignUpFrame extends JFrame {
     private JTextField usernameField;
@@ -22,10 +23,11 @@ public class SignUpFrame extends JFrame {
 
     private Map<String, UserData> userDatabase;
     private LoginFrame loginFrame;
-
+    private JPasswordField pinField;
     public SignUpFrame(Map<String, UserData> userDatabase, LoginFrame loginFrame) {
         this.userDatabase = userDatabase;
         this.loginFrame = loginFrame;
+        
 
         setTitle("Sign Up");
         setSize(400, 250);
@@ -35,6 +37,9 @@ public class SignUpFrame extends JFrame {
         // Initialize components
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
+        pinField = new JPasswordField(4); // Set the length of the PIN
+        pinField.setEchoChar('*'); // Set the mask character for the PIN input
+
         accountTypeComboBox = new JComboBox<>(new String[]{"Regular Account", "Gold Account"});
 
         JButton signUpButton = new JButton("Sign Up");
@@ -46,11 +51,13 @@ public class SignUpFrame extends JFrame {
         });
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
+        setLayout(new GridLayout(5, 2));
         add(new JLabel("Username:"));
         add(usernameField);
         add(new JLabel("Password:"));
         add(passwordField);
+        add(new JLabel("PIN:"));
+        add(pinField);
         add(new JLabel("Account Type:"));
         add(accountTypeComboBox);
         add(signUpButton);
@@ -106,6 +113,9 @@ public class SignUpFrame extends JFrame {
             this.password = password;
             this.accountType = accountType;
             this.accountNumber = accountNumber;
+        }
+        public String getAccountNumber() {
+            return accountNumber;
         }
     }
 }

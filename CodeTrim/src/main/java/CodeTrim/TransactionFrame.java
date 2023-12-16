@@ -17,6 +17,11 @@ public class TransactionFrame extends JFrame {
     private final BankAccount regularAccount;
      private JTextField amountField;
     private final JLabel balanceLabel;
+    private String accountNumber;
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
     public TransactionFrame(BankAccount regularAccount) {
         this.regularAccount = regularAccount;
@@ -89,6 +94,12 @@ public class TransactionFrame extends JFrame {
 
         try {
             double amount = Double.parseDouble(amountInput);
+            
+            // Validate that the amount is positive
+            if (amount <= 0) {
+                JOptionPane.showMessageDialog(this, "Invalid amount. Please enter a positive number.");
+                return;
+            }
 
             // Perform deposit or withdrawal based on user selection
             switch (selectedTransaction) {
